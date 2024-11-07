@@ -42,7 +42,7 @@ local function update_output(lines)
     return
   end
 
-  vim.api.nvim_buf_set_lines(M.output_bufnr, 0, -1, false, { "Typst Compilation Output:", string.rep("-", 30), "" }),
+  vim.api.nvim_buf_set_lines(M.output_bufnr, 0, -1, false, { "Typst Compilation Output:", string.rep("-", 30), "" })
   vim.api.nvim_buf_set_lines(M.output_bufnr, -1, -1, false, lines)
 end
 
