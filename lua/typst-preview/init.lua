@@ -45,7 +45,7 @@ local function update_output(lines)
     return
   end
 
-  local current_win = api.nvim_get_current_win()
+  local current_win = vim.api.nvim_get_current_win()
 
   vim.api.nvim_buf_set_lines(M.output_bufnr, 0, -1, false, { "Typst Compilation Output:", string.rep("-", 30), "" })
   vim.api.nvim_buf_set_lines(M.output_bufnr, -1, -1, false, lines)
