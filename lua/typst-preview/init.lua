@@ -50,7 +50,7 @@ local function update_output(lines)
   vim.api.nvim_buf_set_lines(M.output_bufnr, 0, -1, false, { "Typst Compilation Output:", string.rep("-", 30), "" })
   vim.api.nvim_buf_set_lines(M.output_bufnr, -1, -1, false, lines)
 
-  api.nvim_set_current_win(current_win)
+  vim.api.nvim_set_current_win(current_win)
 end
 
 local function setup_autocommands()
