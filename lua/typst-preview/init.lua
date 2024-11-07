@@ -97,8 +97,9 @@ local function setup_autocommands()
 
             table.insert(output, "")
             table.insert(output, "Exit code: " .. code)
-
-            update_output(output)
+            vim.schedule(function()
+              update_output(output)
+            end)
 
             vim.fn.delete(temp_file)
           end
