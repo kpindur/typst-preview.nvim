@@ -69,6 +69,7 @@ local function setup_autocommands()
 
         create_output_window()
 
+        local output = {}
         vim.fn.jobstart({ "typst", "compile", temp_file}, {
           stdout_buffered = true,
           stderr_buffered = true,
@@ -89,6 +90,8 @@ local function setup_autocommands()
 
             table.insert(output, "")
             table.insert(output, "Exit code: " .. code)
+
+            update_output(output)
 
             vim.fn.delete(temp_file)
           end
