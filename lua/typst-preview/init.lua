@@ -67,7 +67,32 @@ local function setup_autocommands()
         local temp_file = filepath .. ".tmp"
         vim.fn.writefile(lines, temp_file)
 
-        vim.fn.jobstart({ "typst", "compile", temp_file}, { on_exit = function() vim.fn.delete(temp_file) end })
+        create_output_window()
+
+        vim.fn.jobstart({ "typst", "compile", temp_file}, {
+          stdout_buffered = true,
+          stderr_buffered = true,
+          on_stdout = function(_, data)
+            if data then
+              vim.list_extend(output, data)
+            end
+          end,
+          on_stderr = function(_, data)
+            if data then
+              vim.list_extend(output, data)
+            end
+          end,
+          on_exit = function(_, code)
+            output = vim.tbl_filter(function(line)
+              return line ~= ""
+            end, output)
+
+            table.insert(output, "")
+            table.insert(output, "Exit code: " .. code)
+
+            vim.fn.delete(temp_file)
+          end
+        })
       end, M.config.compile_delay)
     end
   })
