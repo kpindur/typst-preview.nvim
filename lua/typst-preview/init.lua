@@ -32,6 +32,9 @@ local function create_output_window()
     vim.api.nvim_buf_set_name(M.output_bufnr, "Typst Output")
 
     vim.api.nvim_win_set_buf(M.output_winnr, M.output_bufnr)
+
+    vim.api.nvim_buf_set_option(M.output_bufnr, "buflisted", false)
+    vim.api.nvim_win_set_option(M.output_winnr, "winfixheight", true)
   end
 
   vim.cmd("wincmd p")
@@ -42,8 +45,12 @@ local function update_output(lines)
     return
   end
 
+  local current_win = api.nvim_get_current_win()
+
   vim.api.nvim_buf_set_lines(M.output_bufnr, 0, -1, false, { "Typst Compilation Output:", string.rep("-", 30), "" })
   vim.api.nvim_buf_set_lines(M.output_bufnr, -1, -1, false, lines)
+
+  api.nvim_set_current_win(current_win)
 end
 
 local function setup_autocommands()
