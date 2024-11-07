@@ -29,7 +29,7 @@ local function create_output_window()
     vim.api.nvim_buf_set_option(M.output_bufnr, "swapfile", false)
     vim.api.nvim_buf_set_option(M.output_bufnr, "bufhidden", "hide")
     vim.api.nvim_buf_set_option(M.output_bufnr, "filetype", "typst-output")
-    vim.api.nvim_buf_set_option(M.output_bufnr, "Typst Output")
+    vim.api.nvim_buf_set_name(M.output_bufnr, "Typst Output")
 
     vim.api.nvim_win_set_buf(M.output_winnr, M.output_bufnr)
   end
